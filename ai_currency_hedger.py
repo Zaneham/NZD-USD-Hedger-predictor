@@ -18,12 +18,11 @@ from tensorflow.keras.callbacks import EarlyStopping
 from dotenv import load_dotenv
 import os
 from jb_news.news import CJBNews
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+
 
 # --- Load API keys ---
 load_dotenv()
-JB_API_KEY = os.getenv("JB_API_KEY")      # jblanked.com key
+JB_API_KEY = os.getenv("JB_API_KEY")      # jblanked.com key - This is a newsgpt site where you can get draw sentiment from
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")  # newsapi.org key
 FX_API_KEY = os.getenv("FX_API_KEY")      # exchangerate-api key
 
@@ -196,6 +195,7 @@ plt.title('NZD/USD Prediction vs Actual')
 plt.xlabel('Date')
 plt.ylabel('Rate')
 plt.show()
+
 
 
 
