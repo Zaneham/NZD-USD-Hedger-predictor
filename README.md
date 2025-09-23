@@ -35,7 +35,7 @@ cd NZD-USD-Hedger-predictor
 
 2. Set up environment
 bash
-pip install -r requirements.txt
+Make sure you've got all the packaged used
 
 
 3. Configure
