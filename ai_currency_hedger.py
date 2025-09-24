@@ -2,7 +2,7 @@
 """
 Created on Thu Sep 11 20:17:48 2025
 
-@author: GGPC
+@author: Zane Hambly
 """
 
 import pandas as pd
@@ -22,9 +22,9 @@ from jb_news.news import CJBNews
 
 # --- Load API keys ---
 load_dotenv()
-JB_API_KEY = os.getenv("JB_API_KEY")      # jblanked.com key - This is a newsgpt site where you can get draw sentiment from
-NEWS_API_KEY = os.getenv("NEWS_API_KEY")  # newsapi.org key
-FX_API_KEY = os.getenv("FX_API_KEY")      # exchangerate-api key
+JB_API_KEY = os.getenv("JB_API_KEY")      # jblanked.com key - This is a newsgpt site where you can get draw sentiment from. This is more expansive and includes more events
+NEWS_API_KEY = os.getenv("NEWS_API_KEY")  # newsapi.org key - This is a news site that pulls headlines, you'll the me trying to pull fx/currency headlines later on to get sentiment from
+FX_API_KEY = os.getenv("FX_API_KEY")      # exchangerate-api key - Up-to-date fx data that we can pull directly from. Using this instead of Yfinance for more accurate data
 
 # --- Helper functions ---
 def fetch_jb_calendar(api_key, offset=15):
@@ -195,6 +195,7 @@ plt.title('NZD/USD Prediction vs Actual')
 plt.xlabel('Date')
 plt.ylabel('Rate')
 plt.show()
+##This is so we can plot predictions versus actual for the data
 
 
 
