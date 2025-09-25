@@ -44,7 +44,16 @@ with st.sidebar:
 # Apply filter
 filtered_log = log if selected_decision == "All" else log[log.Decision == selected_decision]
 
-
+#  Latest Prediction Panel 
+st.subheader("🔮 Latest Hedge Decision")
+latest = log.iloc[-1]
+col1, col2, col3 = st.columns(3)
+live_rate = get_live_rate()
+if live_rate:
+    col1.metric("Live NZD/USD Rate", f"{live_rate:.5f}")
+else:
+    col1.warning("Live rate unavailable")
+    
 
 
 #  Dropdown Filter 
@@ -63,15 +72,6 @@ else:
 # Display filtered table
 st.dataframe(filtered_log.tail(20), use_container_width=True)
 
-#  Latest Prediction Panel 
-st.subheader("🔮 Latest Hedge Decision")
-latest = log.iloc[-1]
-col1, col2, col3 = st.columns(3)
-live_rate = get_live_rate()
-if live_rate:
-    col1.metric("Live NZD/USD Rate", f"{live_rate:.5f}")
-else:
-    col1.warning("Live rate unavailable")
     
     
 ## This is a download button
