@@ -41,7 +41,8 @@ with st.sidebar:
     3. **Prediction Model** – Uses an LSTM to forecast the next exchange rate movement.  
     4. **Decision Logic** – Suggests whether to Hedge now, Wait, or remain Neutral.  
     5. **Logging & Visualization** – Stores predictions and lets you filter, explore, and download results.
-     DISCLAIMER: This is not financial advice, this is a proof-of-concept I have made in my free time.""")
+    
+    **DISCLAIMER**: This is not financial advice, this is a proof-of-concept I have made in my free time.""")
 with st.sidebar:
     st.header("🔧 Controls")
 
