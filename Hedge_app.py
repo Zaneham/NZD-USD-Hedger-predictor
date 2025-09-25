@@ -9,7 +9,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import requests
-
+import os
 
 def get_live_rate():
     url = "https://api.exchangerate-api.com/v4/latest/NZD"
@@ -21,7 +21,8 @@ def get_live_rate():
         return None
 
 # Load hedge log 
-log = pd.read_csv(r"C:\Users\GGPC\OneDrive\Documents\New folder\hedge_log.csv")
+log_path = os.path.join(os.path.dirname(__file__), "hedge_log.csv")
+log = pd.read_csv(log_path)
 
 log.columns = log.columns.str.strip().str.replace(" ", "_")
 
