@@ -29,6 +29,23 @@ log.columns = log.columns.str.strip().str.replace(" ", "_")
 st.set_page_config(page_title="FX Hedging Dashboard", layout="wide")
 st.title("📊 FX Hedging Dashboard 📊 ")
 
+# sidebaaar
+with st.sidebar:
+    st.header("🔧 Controls")
+
+    # Decision filter
+    decision_types = log.Decision.dropna().unique().tolist()
+    selected_decision = st.selectbox("Filter by decision", ["All"] + decision_types)
+
+    # Sentiment toggle (optional placeholder will do more later)
+    use_sentiment = st.checkbox("Include sentiment features")
+
+# Apply filter
+filtered_log = log if selected_decision == "All" else log[log.Decision == selected_decision]
+
+
+
+
 #  Dropdown Filter 
 st.subheader("🔍 Filter Hedge Log by Decision Type🪄")
 
@@ -55,12 +72,8 @@ if live_rate:
 else:
     col1.warning("Live rate unavailable")
     
-    st.download_button(
-        label="📥 Download filtered hedge log",
-        data=filtered_log.to_csv(index=False),
-        file_name="filtered_hedge_log.csv",
-        mime="text/csv"
-    ) ## This is a download button
+    
+## This is a download button
 ##This uses the csv file fyi
 col2.metric("Predicted Rate", f"{latest.Predicted_Rate:.5f}")
 col3.metric("Decision", latest.Decision)
@@ -69,6 +82,12 @@ col3.metric("Decision", latest.Decision)
 st.subheader("📋 Recent Hedge Log Entries 📊")
 st.dataframe(log.tail(20), use_container_width=True)
 
+st.download_button(
+    label="📥 Download filtered hedge log",
+    data=filtered_log.to_csv(index=False),
+    file_name="filtered_hedge_log.csv",
+    mime="text/csv"
+)
 
 
 
@@ -99,6 +118,21 @@ fig, ax = plt.subplots()
 log.plot(x="Timestamp", y=["Live_Rate", "Predicted_Rate", "Actual"], ax=ax)
 plt.xticks(rotation=45)
 st.pyplot(fig)
+
+st.subheader("💰 Cumulative PnL Over Time")
+
+if "PnL" in filtered_log.columns:
+    filtered_log["CumulativePnL"] = filtered_log["PnL"].cumsum()
+    fig, ax = plt.subplots()
+    ax.plot(filtered_log["Timestamp"], filtered_log["CumulativePnL"], label="Cumulative PnL", color="green")
+    ax.set_xlabel("Date")
+    ax.set_ylabel("PnL")
+    ax.legend()
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
+else:
+    st.info("No PnL column found in hedge log — add one to track performance.")
+
 
 # Simulator Panel 
 st.subheader("🧪 Hedge Decision Simulator 🧪")
