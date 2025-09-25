@@ -32,7 +32,7 @@ st.title("📊 FX Hedging Dashboard 📊 ")
 
 # sidebaaar
 with st.sidebar:
-    st.markdown("## 🧠 How It Works")
+    st.markdown("##  How It Works")
     st.markdown("""
      Kia ora/Hello, this app demonstrates how deep learning can be applied to FX hedging decisions:
 
