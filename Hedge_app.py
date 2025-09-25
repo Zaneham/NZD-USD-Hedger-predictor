@@ -120,19 +120,6 @@ log.plot(x="Timestamp", y=["Live_Rate", "Predicted_Rate", "Actual"], ax=ax)
 plt.xticks(rotation=45)
 st.pyplot(fig)
 
-st.subheader("💰 Cumulative PnL Over Time")
-
-if "PnL" in filtered_log.columns:
-    filtered_log["CumulativePnL"] = filtered_log["PnL"].cumsum()
-    fig, ax = plt.subplots()
-    ax.plot(filtered_log["Timestamp"], filtered_log["CumulativePnL"], label="Cumulative PnL", color="green")
-    ax.set_xlabel("Date")
-    ax.set_ylabel("PnL")
-    ax.legend()
-    plt.xticks(rotation=45)
-    st.pyplot(fig)
-else:
-    st.info("No PnL column found in hedge log — add one to track performance.")
 
 
 # Simulator Panel 
