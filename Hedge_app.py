@@ -32,6 +32,17 @@ st.title("📊 FX Hedging Dashboard 📊 ")
 
 # sidebaaar
 with st.sidebar:
+    st.markdown("## 🧠 How It Works")
+    st.markdown("""
+     Kia ora/Hello, this app demonstrates how deep learning can be applied to FX hedging decisions:
+
+    1. **Data Collection** – Pulls NZD/USD exchange rate data (plus some optional external features).  
+    2. **Feature Engineering** – Prepares time‑series windows and normalizes values.  
+    3. **Prediction Model** – Uses an LSTM to forecast the next exchange rate movement.  
+    4. **Decision Logic** – Suggests whether to Hedge now, Wait, or remain Neutral.  
+    5. **Logging & Visualization** – Stores predictions and lets you filter, explore, and download results.
+    """)
+with st.sidebar:
     st.header("🔧 Controls")
 
     # Decision filter
