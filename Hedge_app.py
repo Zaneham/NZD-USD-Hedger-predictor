@@ -10,7 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import requests
 import os
-import numpy as np
+
 def get_live_rate():
     url = "https://api.exchangerate-api.com/v4/latest/NZD"
     try:
@@ -28,13 +28,6 @@ log.columns = log.columns.str.strip().str.replace(" ", "_")
 
 st.set_page_config(page_title="FX Hedging Dashboard", layout="wide")
 st.title("📊 FX Hedging Dashboard 📊 ")
-
-
-# If no PnL column exists, create a demo one
-if "PnL" not in log.columns:
-    # Example: +1 if decision was "Hedge now", -1 if "Wait", 0 otherwise
-    log["PnL"] = np.where(log["Decision"] == "Hedge now", 1,
-                  np.where(log["Decision"] == "Wait", -1, 0))
 
 
 # sidebaaar
