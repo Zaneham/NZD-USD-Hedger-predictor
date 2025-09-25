@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
 
-# --- Load hedge log ---
+# Load hedge log
 log_path = (r"C:\Users\GGPC\OneDrive\Documents\New folder\hedge_log.csv")
 log = pd.read_csv(log_path)
 
@@ -22,12 +22,12 @@ for col in ["Actual", "Error", "CorrectDirection", "HedgeOutcome"]:
     if col not in log.columns:
         log[col] = None
 
-# --- Load API key ---
+# API key 
 load_dotenv()
 API_KEY = os.getenv("FX_API_KEY")
 url = f"https://v6.exchangerate-api.com/v6/{API_KEY}/latest/NZD"
 
-# --- Fetch current actual rate ---
+#  Fetch current actual rate 
 try:
     response = requests.get(url)
     response.raise_for_status()
@@ -38,10 +38,9 @@ except Exception as e:
     print(f"Error fetching actual rate: {e}")
     actual_rate_now = None
 
-# --- Function to evaluate a single row ---
 def evaluate_entry(row, actual_rate):
     if pd.isna(row.Predicted_Rate) or pd.isna(row.Live_Rate) or actual_rate is None:
-        return row  # skip if missing data
+        return row  # skip if it is missing data
 
     error = row.Predicted_Rate - actual_rate
     correct_direction = (row.Predicted_Rate > row.Live_Rate) == (actual_rate > row.Live_Rate)
@@ -59,7 +58,7 @@ def evaluate_entry(row, actual_rate):
     row.HedgeOutcome = hedge_outcome
     return row
 
-# --- Update yesterday’s entry ---
+# Updating yesterday’s entry 
 yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
 mask = log['Timestamp'].astype(str).str.startswith(yesterday)
 
@@ -70,12 +69,12 @@ if mask.any() and actual_rate_now is not None:
 else:
     print(f"No prediction found for {yesterday} or missing actual rate.")
 
-# --- Backfill all past entries (if Actual is missing) ---
+#  Backfill all past entries (if Actual is missing)
 if actual_rate_now is not None:
     for idx, row in log.iterrows():
         if pd.isna(row.Actual):
             log.loc[idx] = evaluate_entry(row, actual_rate_now)
 
-# --- Save updated log ---
+# Save updated log 
 log.to_csv(log_path, index=False)
 print("Log updated with actuals, errors, directions, and hedge outcomes.")

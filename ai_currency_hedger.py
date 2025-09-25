@@ -24,9 +24,9 @@ import yfinance as yf
 
 # --- Load API keys ---
 load_dotenv()
-JB_API_KEY = os.getenv("JB_API_KEY")      # jblanked.com key
-NEWS_API_KEY = os.getenv("NEWS_API_KEY")  # newsapi.org key
-FX_API_KEY = os.getenv("FX_API_KEY")      # exchangerate-api key
+JB_API_KEY = os.getenv("JB_API_KEY")      # jblanked.com key - You can use another news gpt api or create your own
+NEWS_API_KEY = os.getenv("NEWS_API_KEY")  # newsapi.org key - Pulls headlines, use this with news gpt to create sentiment
+FX_API_KEY = os.getenv("FX_API_KEY")      # exchangerate-api key - 
 
 # --- Helper functions ---
 def fetch_jb_calendar(api_key, offset=15):
@@ -72,8 +72,8 @@ def fetch_news_sentiment(api_key):
         news_data = response.json()
         rows = []
         for article in news_data.get("articles", []):
-            title = article.get("title") or ""          # coerce None -> ""
-            desc = article.get("description") or ""     # coerce None -> ""
+            title = article.get("title") or ""          ### coerce None -> ""
+            desc = article.get("description") or ""     ### coerce None -> ""
             text = title + " " + desc
             polarity = TextBlob(text).sentiment.polarity
             sentiment = 1 if polarity > 0.05 else -1 if polarity < -0.05 else 0
@@ -200,7 +200,7 @@ data_api = response.json()
 live_rate = data_api['conversion_rates']['USD']
 print(f"Live NZD/USD rate: {live_rate:.5f}")
 
-# --- Predict next rate
+# Predict next rate
 
 recent_scaled = test_scaled[-(look_back - 1):]
 new_point = scaler.transform([[live_rate, 0]])  # neutral sentiment
@@ -212,7 +212,7 @@ predicted_scaled_padded = np.array([[predicted_scaled[0][0], 0]])
 predicted_rate = scaler.inverse_transform(predicted_scaled_padded)[0][0]
 print(f"Predicted next rate: {predicted_rate:.5f}")
 
-# --- Sensitivity analysis ---
+# Sensitivity analysis 
 print("\nSentiment sensitivity:")
 for s in [-1, 0, 1]:
     test_point = scaler.transform([[live_rate, s]])
@@ -239,7 +239,7 @@ with open('hedge_log.csv', 'a', newline='') as file:
     ])
 
 
-# --- Plot predictions vs actual ---
+#Plot predictions vs actual 
 predicted_scaled = model.predict(X_test)
 predicted_padded = np.hstack([predicted_scaled, np.zeros_like(predicted_scaled)])
 predicted_unscaled = scaler.inverse_transform(predicted_padded)[:, 0]
