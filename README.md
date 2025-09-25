@@ -23,7 +23,8 @@ It focuses on reproducibility, automation, and integration of external features 
 ##  Tech Stack
 - **Python** (TensorFlow / Keras, NumPy, Pandas, Scikit-learn)  
 - **YAML & .env** for configuration management  
-- **Matplotlib** for plotting results  
+- **Matplotlib** for plotting results
+- ***Streamlit*** for a user friendly app
 
 ---
 
