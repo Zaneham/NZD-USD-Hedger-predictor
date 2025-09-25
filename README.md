@@ -1,7 +1,7 @@
 # NZD-USD-Hedger-predictor
 
 
-This repository contains my experiments with **Long Short-Term Memory (LSTM) networks** for foreign exchange (FX) prediction. The goal is to explore how deep learning can be applied to time series forecasting in financial markets, and to build reproducible results that can be extended to live trading or hedging strategies. I'm currently using it for a side case study anaylis I'll be publishing
+This repository contains my experiments with **Long Short-Term Memory (LSTM) networks** for foreign exchange (FX) prediction. The goal is to explore how deep learning can be applied to time series forecasting in financial markets, and to build reproducible results that can be extended to live trading or hedging strategies. I'm currently using it for a side case study analysis I'll be publishing. I'm constantly learning so any feedback is appreciated
 
 ---
 
