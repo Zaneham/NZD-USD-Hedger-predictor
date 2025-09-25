@@ -1,4 +1,4 @@
-jb_news - This is optional you can use your own news gpt.
+jb_news 
 matplotlib
 numpy
 pandas
@@ -9,3 +9,4 @@ streamlit
 tensorflow
 textblob
 yfinance
+
